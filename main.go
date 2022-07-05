@@ -3,14 +3,21 @@ package main
 import (
 	"net/http"
 
-	"github.com/eriicafes/go-api-starter/count"
+	"github.com/eriicafes/filedb"
 	"github.com/eriicafes/go-api-starter/routes"
+	"github.com/eriicafes/go-api-starter/todos"
+	"github.com/eriicafes/go-api-starter/users"
 	"github.com/gin-gonic/gin"
 )
 
 var (
-	counterService    = count.NewCounterService()
-	counterController = count.NewCounterController(counterService)
+	database        = filedb.New("store")
+	usersRepository = users.NewUsersRepository(database)
+	usersService    = users.NewUsersService(usersRepository)
+	usersController = users.NewUsersController(usersService)
+	todosRepository = todos.NewTodosRepository(database)
+	todosService    = todos.NewTodosService(todosRepository)
+	todosController = todos.NewTodosController(todosService)
 )
 
 func main() {
@@ -21,8 +28,8 @@ func main() {
 	})
 
 	routes.RegisterControllers(router,
-		routes.Register("/", counterController),
-		routes.Register("/second", counterController),
+		routes.Register("/users", usersController),
+		routes.Register("/users/:id/todos", todosController),
 	)
 
 	router.Run()
