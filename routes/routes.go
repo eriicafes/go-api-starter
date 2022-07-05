@@ -21,8 +21,22 @@ func Register(path string, controller Controller, middlewares ...gin.HandlerFunc
 }
 
 func RegisterControllers(router *gin.Engine, controllers ...registry) {
-
 	for _, registry := range controllers {
+		if registry.controller == nil {
+			continue
+		}
+		registry.controller.Register(router.Group(
+			registry.path,
+			registry.middlewares...,
+		))
+	}
+}
+
+func RegisterSubControllers(router *gin.RouterGroup, controllers ...registry) {
+	for _, registry := range controllers {
+		if registry.controller == nil {
+			continue
+		}
 		registry.controller.Register(router.Group(
 			registry.path,
 			registry.middlewares...,
