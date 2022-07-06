@@ -5,8 +5,8 @@ import (
 
 	"github.com/eriicafes/filedb"
 	"github.com/eriicafes/go-api-starter/controller"
-	"github.com/eriicafes/go-api-starter/todos"
-	"github.com/eriicafes/go-api-starter/users"
+	"github.com/eriicafes/go-api-starter/modules/todos"
+	"github.com/eriicafes/go-api-starter/modules/users"
 	"github.com/gin-gonic/gin"
 )
 
