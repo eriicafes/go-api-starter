@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/eriicafes/filedb"
-	"github.com/eriicafes/go-api-starter/routes"
+	"github.com/eriicafes/go-api-starter/controller"
 	"github.com/eriicafes/go-api-starter/todos"
 	"github.com/eriicafes/go-api-starter/users"
 	"github.com/gin-gonic/gin"
@@ -27,9 +27,9 @@ func main() {
 		ctx.JSON(http.StatusOK, gin.H{"ping": "pong"})
 	})
 
-	routes.RegisterControllers(router,
-		routes.Register("/users", usersController),
-		routes.Register("/users/:id/todos", todosController),
+	controller.Register(router,
+		controller.NewRecord("/users", usersController),
+		controller.NewRecord("/users/:id/todos", todosController),
 	)
 
 	router.Run()
