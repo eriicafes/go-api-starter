@@ -19,17 +19,17 @@ type httpResponse struct {
 }
 
 func New(ctx *gin.Context) httpResponse {
-	status := http.StatusOK
-
 	return httpResponse{
-		ctx:     ctx,
-		Status:  status,
-		Message: http.StatusText(status),
+		ctx:    ctx,
+		Status: http.StatusOK,
 	}
 }
 
 func (r httpResponse) JSON() {
 	r.Error = nil
+	if r.Message == "" {
+		r.Message = http.StatusText(r.Status)
+	}
 	r.ctx.JSON(r.Status, r)
 }
 
@@ -37,6 +37,8 @@ func (r httpResponse) ErrJSON() {
 	r.Data = nil
 	if r.Status < 300 {
 		r.Status = http.StatusInternalServerError
+	}
+	if r.Message == "" {
 		r.Message = http.StatusText(r.Status)
 	}
 	r.ctx.JSON(r.Status, r)
