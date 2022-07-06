@@ -69,7 +69,7 @@ func (m *todoModel) get() []Todo {
 }
 
 func (m *todoModel) set(todos []Todo) {
-	var data []interface{}
+	data := make([]interface{}, len(todos))
 
 	for _, todo := range todos {
 		data = append(data, todo)

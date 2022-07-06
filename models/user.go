@@ -57,7 +57,7 @@ func (m *userModel) get() []User {
 }
 
 func (m *userModel) set(users []User) {
-	var data []interface{}
+	data := make([]interface{}, len(users))
 
 	for _, user := range users {
 		data = append(data, user)
