@@ -27,10 +27,10 @@ func main() {
 		ctx.JSON(http.StatusOK, gin.H{"ping": "pong"})
 	})
 
-	controller.Register(router,
-		controller.NewRecord("/users", usersController),
-		controller.NewRecord("/users/:id/todos", todosController),
-	)
+	binder := controller.NewBinder(router)
+
+	binder.Bind("/users", usersController)
+	binder.Bind("/users/:id/todos", todosController)
 
 	router.Run()
 }
