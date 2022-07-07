@@ -3,7 +3,7 @@ package controller
 import "github.com/gin-gonic/gin"
 
 type Controller interface {
-	Register(r *gin.RouterGroup)
+	Routes(r *gin.RouterGroup)
 }
 
 type binder struct {
@@ -20,5 +20,5 @@ func (b *binder) Bind(path string, controller Controller, middlewares ...gin.Han
 	}
 
 	group := b.router.Group(path, middlewares...)
-	controller.Register(group)
+	controller.Routes(group)
 }

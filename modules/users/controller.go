@@ -19,7 +19,7 @@ func NewUsersController(usersService UsersService) *usersController {
 	}
 }
 
-func (c *usersController) Register(r *gin.RouterGroup) {
+func (c *usersController) Routes(r *gin.RouterGroup) {
 	r.GET("", c.FindAll)
 	r.GET(":id", c.FindOne)
 	r.POST("", c.Create)

@@ -19,7 +19,7 @@ func NewTodosController(todosService TodosService) *todosController {
 	}
 }
 
-func (c *todosController) Register(r *gin.RouterGroup) {
+func (c *todosController) Routes(r *gin.RouterGroup) {
 	r.GET("", c.FindAll)
 	r.GET(":todoId", c.FindOne)
 	r.POST("", c.Create)
